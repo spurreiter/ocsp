@@ -1,14 +1,11 @@
-var ocsp = require('../');
-var fixtures = require('./fixtures');
+var ocsp = require('../')
+var https = require('https')
 
-var assert = require('assert');
-var https = require('https');
-
-describe('OCSP Agent', function() {
-  var a;
-  beforeEach(function() {
-    a = new ocsp.Agent();
-  });
+describe('OCSP Agent', function () {
+  var a
+  beforeEach(function () {
+    a = new ocsp.Agent()
+  })
 
   var websites = [
     'www.google.com',
@@ -17,18 +14,18 @@ describe('OCSP Agent', function() {
     'yahoo.com',
     'nytimes.com',
     'microsoft.com'
-  ];
+  ]
 
-  websites.forEach(function(host) {
-    it('should connect and validate ' + host, function(cb) {
-      var req = https.get({
+  websites.forEach(function (host) {
+    it('should connect and validate ' + host, function (cb) {
+      https.get({
         host: host,
         port: 443,
         agent: a
-      }, function(res) {
-        res.resume();
-        cb();
-      });
-    });
-  });
-});
+      }, function (res) {
+        res.resume()
+        cb()
+      })
+    })
+  })
+})
