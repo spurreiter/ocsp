@@ -1,4 +1,4 @@
-var ocsp = require('../')
+var ocsp = require('..')
 var fixtures = require('./fixtures')
 
 var https = require('https')
@@ -64,10 +64,11 @@ describe('OCSP Cache', function () {
       https.get({
         agent: agent,
         ca: issuer.cert,
-        rejectUnauthorized: !/^v0.12/.test(process.version),
+        rejectUnauthorized: false,
         servername: 'local.host',
         port: 8001
       }, function (res) {
+        cache.clear()
         cb()
       })
     })

@@ -11,8 +11,8 @@ var options = {
 }
 
 fixtures.getOCSPCert(options, function (cert, key) {
-  fs.writeFileSync(resolve(__dirname, '/issuer-cert.pem', cert))
-  fs.writeFileSync(resolve(__dirname, '/issuer-key.pem', key))
+  fs.writeFileSync(resolve(__dirname, 'issuer-cert.pem'), cert)
+  fs.writeFileSync(resolve(__dirname, 'issuer-key.pem'), key)
 
   var options = {
     issuer: cert,
@@ -22,14 +22,14 @@ fixtures.getOCSPCert(options, function (cert, key) {
   }
 
   fixtures.getOCSPCert(options, function (cert, key) {
-    fs.writeFileSync(resolve(__dirname, '/good-cert.pem', cert))
-    fs.writeFileSync(resolve(__dirname, '/good-key.pem', key))
+    fs.writeFileSync(resolve(__dirname, 'good-cert.pem'), cert)
+    fs.writeFileSync(resolve(__dirname, 'good-key.pem'), key)
 
     options.serial++
 
     fixtures.getOCSPCert(options, function (cert, key) {
-      fs.writeFileSync(resolve(__dirname, '/revoked-cert.pem', cert))
-      fs.writeFileSync(resolve(__dirname, '/revoked-key.pem', key))
+      fs.writeFileSync(resolve(__dirname, 'revoked-cert.pem'), cert)
+      fs.writeFileSync(resolve(__dirname, 'revoked-key.pem'), key)
     })
   })
 })

@@ -15,16 +15,16 @@ var keyGen = require('selfsigned.js').create()
            accessLocation        GeneralName  }
  */
 
-exports.google = fs.readFileSync(resolve(__dirname, './google-cert.pem'))
-exports.googleIssuer = fs.readFileSync(resolve(__dirname, './google-issuer.pem'))
-exports.noExts = fs.readFileSync(resolve(__dirname, './no-exts-cert.pem'))
+exports.google = fs.readFileSync(resolve(__dirname, 'google-cert.pem'))
+exports.googleIssuer = fs.readFileSync(resolve(__dirname, 'google-issuer.pem'))
+exports.noExts = fs.readFileSync(resolve(__dirname, 'no-exts-cert.pem'))
 
 exports.certs = {};
 
 ['issuer', 'good', 'revoked'].forEach(function (name) {
   exports.certs[name] = {
-    cert: fs.readFileSync(resolve(__dirname, './' + name + '-cert.pem')),
-    key: fs.readFileSync(resolve(__dirname, './' + name + '-key.pem'))
+    cert: fs.readFileSync(resolve(__dirname, name + '-cert.pem')),
+    key: fs.readFileSync(resolve(__dirname, name + '-key.pem'))
   }
 })
 
@@ -89,7 +89,7 @@ exports.getOCSPCert = function getOCSPCert (options, cb) {
       issuer: issuer,
       issuerKeyData: issuerKeyData,
       extensions: [{
-        extnID: rfc5280['id-pe-authorityInfoAccess'],
+        extnID: [1, 3, 6, 1, 5, 5, 7, 1, 1], // rfc5280['id-pe-authorityInfoAccess'],
         critical: false,
         extnValue: ext
       }]

@@ -12,7 +12,6 @@ describe('OCSP Stapling Provider', function () {
         issuer: fixtures.googleIssuer
       }, function (err, res) {
         if (err) { throw err }
-
         assert.equal(res.type, 'good')
         cb()
       })
@@ -20,9 +19,9 @@ describe('OCSP Stapling Provider', function () {
   })
 
   describe('.verify()', function () {
-    it('should verify reddit.com\'s stapling', function (cb) {
+    it('should verify wikipedia.org\'s stapling', function (cb) {
       var req = https.request({
-        host: 'reddit.com',
+        host: 'wikipedia.org',
         port: 443,
         requestOCSP: true
       }, function (res) {
@@ -35,19 +34,20 @@ describe('OCSP Stapling Provider', function () {
           onOCSPResponse(socket, stapling)
         })
       })
+      req.on('error', () => {})
 
       function onOCSPResponse (socket, stapling) {
         var cert = socket.getPeerCertificate(true)
 
-        var req = ocsp.request.generate(cert.raw, cert.issuerCertificate.raw)
+        var request = ocsp.request.generate(cert.raw, cert.issuerCertificate.raw)
         ocsp.verify({
-          request: req,
+          request,
           response: stapling
         }, function (err, res) {
           assert(!err)
 
           assert.equal(res.type, 'good')
-          socket.destroy()
+          socket.end()
           cb()
         })
       }

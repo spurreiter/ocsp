@@ -13,10 +13,14 @@
   },
   "license": "MIT",
   "author": "Fedor Indutny <fedor@indutny.com>",
-  "main": "lib/ocsp.js",
+  "main": "lib/index.js",
   "scripts": {
+    "certs": "node scripts/certs.js",
     "lint": "eslint lib test",
     "test": "mocha"
+  },
+  "mocha": {
+    "exit": true
   },
   "dependencies": {
     "asn1.js": "^5.3.0",
@@ -33,6 +37,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "mocha": "^7.1.1",
-    "selfsigned.js": "^3.0.2"
+    "selfsigned.js": "^3.0.2",
+    "shelljs": "^0.8.3"
   }
 }
