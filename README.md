@@ -5,7 +5,7 @@ Various [OCSP][0]-related APIs to be used with node.js/io.js.
 ## Installing
 
 ```bash
-$ npm install ocsp
+$ npm install https://github.com/spurreiter/ocsp#semver:^1.3.0
 ```
 
 ## Parts
